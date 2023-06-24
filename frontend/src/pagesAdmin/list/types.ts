@@ -1,4 +1,9 @@
-export type TProducts = {
+export interface IDates {
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ICategories extends IDates {
   nameCategory:
     | 'conveniencia'
     | 'golosinas'
@@ -8,9 +13,10 @@ export type TProducts = {
     | 'no perecederos';
   description: string;
   photo: string;
-};
+}
 
-export type TUsers = {
+export interface IUsers extends IDates {
+  _id: string;
   firstName: string;
   lastName: string;
   dni: number;
@@ -22,4 +28,4 @@ export type TUsers = {
   googleId?: string;
   sex?: string;
   profilePhoto?: string;
-};
+}

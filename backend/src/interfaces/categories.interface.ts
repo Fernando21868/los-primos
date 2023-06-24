@@ -1,4 +1,4 @@
-export interface IProducts {
+export interface ICategories {
   nameCategory:
     | "conveniencia"
     | "golosinas"

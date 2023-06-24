@@ -1,5 +1,5 @@
 import mongoose, { Model } from "mongoose";
-import { IProducts } from "./products.interface";
+import { ICategories } from "./categories.interface";
 import { IUsers } from "./users.interface";
 
 export interface Config {
@@ -8,6 +8,6 @@ export interface Config {
 
 export interface Db extends Config {
   mongoose: typeof mongoose;
-  products: Model<IProducts>;
+  categories: Model<ICategories>;
   users: Model<IUsers>;
 }

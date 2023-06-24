@@ -26,6 +26,7 @@ const UserSchema: Schema<IUsers> = new Schema<IUsers>(
     },
     permissions: {
       type: String,
+      default: "cliente",
     },
     phoneNumber: {
       type: String,

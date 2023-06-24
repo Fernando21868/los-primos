@@ -1,24 +1,24 @@
 import { Router } from "express";
 import {
-  getProducts,
-  getProduct,
-  createProduct,
-  updateProduct,
-  deletProduct,
-} from "../controllers/products.controller";
+  getCategories,
+  getCategory,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} from "../controllers/categories.controller";
 
 const router = Router();
 
-console.log(`The route is loading.../products`);
+console.log(`The route is loading.../categories`);
 
-router.get("/products/", getProducts);
+router.get("/categories/", getCategories);
 
-router.get("/products/:idProduct", getProduct);
+router.get("/categories/:idCategory", getCategory);
 
-router.post("/products/", createProduct);
+router.post("/categories/", createCategory);
 
-router.put("/products/:idProduct", updateProduct);
+router.put("/categories/:idCategory", updateCategory);
 
-router.delete("/products/:idProduct", deletProduct);
+router.delete("/categories/:idCategory", deleteCategory);
 
 export { router };

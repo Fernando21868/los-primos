@@ -5,7 +5,7 @@ export interface IUsers {
   email: string;
   password: string;
   repeatPassword: string;
-  permissions: "gerente" | "empleado" | "administrador";
+  permissions: "cliente" | "gerente" | "empleado" | "administrador";
   phoneNumber: string;
   googleId?: string;
   sex?: string;

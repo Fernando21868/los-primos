@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { IUsers } from "../interfaces/users.interface";
-import { IProducts } from "../interfaces/products.interface";
+import { ICategories } from "../interfaces/categories.interface";
 
 const userSchema = Joi.object<IUsers>({
   firstName: Joi.string().required().min(4).max(128),
@@ -17,15 +17,14 @@ const userSchema = Joi.object<IUsers>({
   repeatPassword: Joi.ref("password"),
   permissions: Joi.string()
     .required()
-    .default("empleado")
-    .valid("gerente", "empleado", "administrador"),
+    .valid("administrador", "gerente", "empleado", "cliente"),
   phoneNumber: Joi.string().required().min(9).max(128),
   googleId: Joi.string().min(21),
   sex: Joi.string().valid("masculino", "femenino", "sin especificar"),
   profilePhoto: Joi.string(),
 });
 
-const productsSchema = Joi.object<IProducts>({
+const categoriesSchema = Joi.object<ICategories>({
   description: Joi.string().required().max(500),
   nameCategory: Joi.string()
     .required()
@@ -41,4 +40,4 @@ const productsSchema = Joi.object<IProducts>({
   photo: Joi.string().required(),
 });
 
-export { userSchema, productsSchema };
+export { userSchema, categoriesSchema };

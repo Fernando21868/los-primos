@@ -17,6 +17,8 @@ export function auth(passport: PassportStatic) {
           googleId: profile.id,
           firstName: profile.name?.givenName,
           lastName: profile.name?.familyName,
+          email: profile.emails ? profile.emails[0].value : "",
+          profilePhoto: profile.photos ? profile.photos[0].value : "",
         };
         try {
           let user = await Users.findOne({ googleId: profile.id });

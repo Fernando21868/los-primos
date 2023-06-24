@@ -21,19 +21,23 @@
   padding: .35em;
 } */
 .list__row {
+  overflow: hidden;
   background-color: gray;
   border-bottom: 3px solid black;
   display: block;
   margin-bottom: 0.625em;
+  transition: all ease-in 0.2s;
 }
 .list__row:hover {
   background: white;
 }
 .list__data {
+  overflow: hidden;
   display: block;
   text-align: right;
   border-bottom: 1px solid black;
   padding: 0.5rem;
+  word-wrap: break-word;
 }
 .list__data::before {
   content: attr(data-label);
@@ -43,6 +47,12 @@
 }
 .list__data:last-child {
   border-bottom: 0;
+}
+.list__img{
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  max-width: 50px;
 }
 
 @media screen and (min-width: 600px) {

@@ -1,21 +1,27 @@
 import { useEffect, useState } from 'react';
 import './list.css';
-import { getProducts, getUsers } from './getProductsUsers';
-import { TProducts, TUsers } from './types';
+import { getCategories, getUsers } from './getProductsUsers';
+import { ICategories, IUsers } from './types';
 
 export function List() {
-  const [usersProducts, setUsersProducts] = useState<TProducts[] | TUsers[]>([]);
+  const [users, setUsers] = useState<IUsers[]>([]);
+  const [categories, setCategories] = useState<ICategories[]>([]);
+  const [headings, setHeadings] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState('');
 
   const pathname = window.location.pathname.split('/').pop()!;
 
   useEffect(() => {
     let cancel = false;
     switch (pathname) {
-      case 'products':
-        getProducts().then((data) => {
+      case 'categories':
+        getCategories().then((data) => {
           if (!cancel) {
-            setUsersProducts(data);
+            setHeadings(['Nombre Categoria', 'Descripcion', 'Imagen', 'Creacion', 'Actualizacion']);
+            setCategories(data);
+            setUsers([]);
+            setPage('Categorias');
             setIsLoading(false);
           }
         });
@@ -23,7 +29,21 @@ export function List() {
       case 'users':
         getUsers().then((data) => {
           if (!cancel) {
-            setUsersProducts(data);
+            setHeadings([
+              'ID',
+              'DNI',
+              'Nombre',
+              'Apellido',
+              'Email',
+              'Telefono',
+              'Foto',
+              'Sexo',
+              'Creacion',
+              'Actualizacion',
+            ]);
+            setUsers(data);
+            setCategories([]);
+            setPage('Usuarios');
             setIsLoading(false);
           }
         });
@@ -31,88 +51,86 @@ export function List() {
       default:
         break;
     }
+    return () => {
+      cancel = true;
+    };
   }, [pathname]);
 
-  console.log(usersProducts);
+  if (isLoading) {
+    return <div>...Loading</div>;
+  }
 
   return (
     <div className="list">
       <div className="list__container">
         <table className="list__table">
-          <caption className="list__caption">Tabla de {pathname}</caption>
+          <caption className="list__caption">Tabla de {page}</caption>
           <thead className="list__head">
             <tr className="list__row">
-              <th className="list__heading" scope="col">
-                Account
-              </th>
-              <th className="list__heading" scope="col">
-                Due Date
-              </th>
-              <th className="list__heading" scope="col">
-                Amount
-              </th>
-              <th className="list__heading" scope="col">
-                Period
-              </th>
+              {headings.map((heading) => {
+                return (
+                  <th className="list__heading" scope="col">
+                    {heading}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody className="list__body">
-            <tr className="list__row">
-              <td className="list__data" data-label="Account">
-                Visa - 3412
-              </td>
-              <td className="list__data" data-label="Due Date">
-                04/01/2016
-              </td>
-              <td className="list__data" data-label="Amount">
-                $1,190
-              </td>
-              <td className="list__data" data-label="Period">
-                03/01/2016 - 03/31/2016
-              </td>
-            </tr>
-            <tr className="list__row">
-              <td className="list__data" scope="row" data-label="Account">
-                Visa - 6076
-              </td>
-              <td className="list__data" data-label="Due Date">
-                03/01/2016
-              </td>
-              <td className="list__data" data-label="Amount">
-                $2,443
-              </td>
-              <td className="list__data" data-label="Period">
-                02/01/2016 - 02/29/2016
-              </td>
-            </tr>
-            <tr className="list__row">
-              <td className="list__data" scope="row" data-label="Account">
-                Corporate AMEX
-              </td>
-              <td className="list__data" data-label="Due Date">
-                03/01/2016
-              </td>
-              <td className="list__data" data-label="Amount">
-                $1,181
-              </td>
-              <td className="list__data" data-label="Period">
-                02/01/2016 - 02/29/2016
-              </td>
-            </tr>
-            <tr className="list__row">
-              <td className="list__data" scope="row" data-label="Acount">
-                Visa - 3412
-              </td>
-              <td className="list__data" data-label="Due Date">
-                02/01/2016
-              </td>
-              <td className="list__data" data-label="Amount">
-                $842
-              </td>
-              <td className="list__data" data-label="Period">
-                01/01/2016 - 01/31/2016
-              </td>
-            </tr>
+            {categories.length
+              ? categories.map((category, index) => (
+                  <tr className="list__row" key={index}>
+                    <td className="list__data" data-label={headings[0]}>
+                      {category?.nameCategory}
+                    </td>
+                    <td className="list__data" data-label={headings[1]}>
+                      {category?.description}
+                    </td>
+                    <td className="list__data" data-label={headings[2]}>
+                      <img src={category?.photo} alt="category" className="list__img" />
+                    </td>
+                    <td className="list__data" data-label={headings[8]}>
+                      {category.createdAt}
+                    </td>
+                    <td className="list__data" data-label={headings[9]}>
+                      {category.updatedAt}
+                    </td>
+                  </tr>
+                ))
+              : users.map((user) => (
+                  <tr className="list__row" key={user._id}>
+                    <td className="list__data" data-label={headings[0]}>
+                      {user._id}
+                    </td>
+                    <td className="list__data" data-label={headings[1]}>
+                      {user.dni}
+                    </td>
+                    <td className="list__data" data-label={headings[2]}>
+                      {user.firstName}
+                    </td>
+                    <td className="list__data" data-label={headings[3]}>
+                      {user.lastName}
+                    </td>
+                    <td className="list__data" data-label={headings[4]}>
+                      {user.email}
+                    </td>
+                    <td className="list__data" data-label={headings[5]}>
+                      {user.phoneNumber}
+                    </td>
+                    <td className="list__data" data-label={headings[6]}>
+                      <img src={user.profilePhoto} alt="profile" className="list__img" />
+                    </td>
+                    <td className="list__data" data-label={headings[7]}>
+                      {user.sex}
+                    </td>
+                    <td className="list__data" data-label={headings[8]}>
+                      {user.createdAt}
+                    </td>
+                    <td className="list__data" data-label={headings[9]}>
+                      {user.updatedAt}
+                    </td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>

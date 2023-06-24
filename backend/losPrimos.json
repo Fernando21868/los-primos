@@ -181,10 +181,10 @@
         }
       }
     },
-    "/products/": {
+    "/categories/": {
       "get": {
         "tags": [
-          "products"
+          "categories"
         ],
         "description": "",
         "parameters": [],
@@ -196,7 +196,7 @@
       },
       "post": {
         "tags": [
-          "products"
+          "categories"
         ],
         "description": "",
         "parameters": [
@@ -226,15 +226,15 @@
         }
       }
     },
-    "/products/{idProduct}": {
+    "/categories/{idCategory}": {
       "get": {
         "tags": [
-          "products"
+          "categories"
         ],
         "description": "",
         "parameters": [
           {
-            "name": "idProduct",
+            "name": "idCategory",
             "in": "path",
             "required": true,
             "type": "string"
@@ -248,12 +248,12 @@
       },
       "put": {
         "tags": [
-          "products"
+          "categories"
         ],
         "description": "",
         "parameters": [
           {
-            "name": "idProduct",
+            "name": "idCategory",
             "in": "path",
             "required": true,
             "type": "string"
@@ -285,12 +285,12 @@
       },
       "delete": {
         "tags": [
-          "products"
+          "categories"
         ],
         "description": "",
         "parameters": [
           {
-            "name": "idProduct",
+            "name": "idCategory",
             "in": "path",
             "required": true,
             "type": "string"

@@ -2,10 +2,8 @@ import { NavLink } from 'react-router-dom';
 import './navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faBars,
   faClipboardList,
   faEgg,
-  faHamburger,
   faHome,
   faLeftLong,
   faRightFromBracket,
