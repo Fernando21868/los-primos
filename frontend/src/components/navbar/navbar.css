@@ -1,0 +1,122 @@
+.navbar {
+  flex: 3;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: blue;
+  max-width: 80px;
+  transition: all ease-in-out 0.4s;
+}
+.navbar.open {
+  width: 300px;
+  max-width: 100%;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* background-color: yellow; */
+  flex: 1;
+  padding: 0.5rem;
+}
+.navbar__brand {
+  width: 100%;
+  max-width: 50px;
+  transition: all ease-in-out 0.4s;
+}
+.navbar__brand.open {
+  max-width: 100px;
+}
+
+.navbar__profile {
+  width: 100%;
+  /* background-color: blue; */
+  flex: 2;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar__img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: all ease-in-out 0.4s;
+}
+.navbar__img.open {
+  width: 150px;
+  height: 150px;
+}
+
+.navbar__sidebar {
+  width: 100%;
+  flex: 10;
+}
+/* .navbar__list {
+  list-style: none;
+  padding: 0;
+  height: 100%;
+
+}
+.navbar__item {
+  display: flex;
+  align-items: center;
+  color: white;
+  transition: all ease-in 0.3s;
+  position: relative;
+} */
+.navbar__list {
+  list-style: none;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: green;
+}
+.navbar__item {
+  display: flex;
+  align-items: center;
+  color: white;
+  transition: all ease-in 0.3s;
+}
+.navbar__list .navbar__item:last-of-type {
+  margin-top: auto;
+}
+.navbar__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 0.5rem;
+  color: inherit;
+  text-decoration: none;
+  width: 100%;
+  /* op */
+  position: relative;
+}
+.navbar__link.open {
+  position: initial;
+  justify-content: flex-start;
+}
+.navbar__icon {
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+.navbar__item:hover {
+  background-color: white;
+  color: blue;
+}
+.navbar__text {
+  transition: all ease-in-out 0.4s;
+  opacity: 0;
+  position: absolute;
+}
+.navbar__text.open {
+  position: initial;
+  opacity: 1;
+}

@@ -1,0 +1,5 @@
+.admin {
+  flex: 5;
+  background-color: red;
+  min-height: 100vh;
+}
