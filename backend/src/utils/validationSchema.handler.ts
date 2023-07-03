@@ -1,6 +1,9 @@
 import Joi from "joi";
-import { IUsers } from "../interfaces/users.interface";
-import { ICategories } from "../interfaces/categories.interface";
+import { IUsers, TUserProfilePhoto } from "../interfaces/users.interface";
+import {
+  ICategories,
+  TCategoriesPhoto,
+} from "../interfaces/categories.interface";
 
 const userSchema = Joi.object<IUsers>({
   firstName: Joi.string().required().min(4).max(128),
@@ -15,9 +18,12 @@ const userSchema = Joi.object<IUsers>({
     .max(128)
     .pattern(new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)),
   repeatPassword: Joi.ref("password"),
-  permissions: Joi.string()
-    .required()
-    .valid("administrador", "gerente", "empleado", "cliente"),
+  permissions: Joi.string().valid(
+    "administrador",
+    "gerente",
+    "empleado",
+    "cliente"
+  ),
   phoneNumber: Joi.string().required().min(9).max(128),
   googleId: Joi.string().min(21),
   sex: Joi.string().valid("masculino", "femenino", "sin especificar"),
@@ -37,7 +43,15 @@ const categoriesSchema = Joi.object<ICategories>({
       "refrigerados",
       "no perecederos"
     ),
+  photo: Joi.string(),
+});
+
+const categoriesSchemaPhoto = Joi.object<TCategoriesPhoto>({
   photo: Joi.string().required(),
 });
 
-export { userSchema, categoriesSchema };
+const userSchemaProfilePhoto = Joi.object<TUserProfilePhoto>({
+  profilePhoto: Joi.string().required(),
+});
+
+export { userSchema, categoriesSchema, categoriesSchemaPhoto, userSchemaProfilePhoto };

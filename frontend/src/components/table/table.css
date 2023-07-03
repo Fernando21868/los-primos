@@ -41,10 +41,10 @@
   border-bottom: 0;
 }
 .list__img {
-  width: 100%;
+  width: 75px;
   border-radius: 50%;
-  object-fit: cover;
-  max-width: 50px;
+  object-fit: fill;
+  height: 75px;
 }
 
 /* BUTTONS */

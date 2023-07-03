@@ -1,4 +1,4 @@
-import { IUsers } from "../interfaces/users.interface";
+import { IUsers, TUserProfilePhoto } from "../interfaces/users.interface";
 import { db } from "../models";
 
 const getUsersService = async (): Promise<IUsers[] | null> => {
@@ -13,6 +13,18 @@ const getSingleUserService = async (idUser: string): Promise<IUsers | null> => {
 
 const createUserService = async (user: IUsers): Promise<IUsers | null> => {
   const response = await db.users.create(user);
+  return response;
+};
+
+const updateUserServiceProfilePhoto = async (
+  idUser: string,
+  profilePhoto: TUserProfilePhoto
+): Promise<IUsers | null> => {
+  const response = await db.users.findOneAndUpdate(
+    { _id: idUser },
+    profilePhoto,
+    { new: true }
+  );
   return response;
 };
 
@@ -35,4 +47,5 @@ export {
   createUserService,
   updateUserService,
   deleteUserService,
+  updateUserServiceProfilePhoto,
 };

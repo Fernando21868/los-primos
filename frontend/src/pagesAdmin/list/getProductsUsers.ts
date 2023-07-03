@@ -50,53 +50,53 @@ export function assertIsUsers(users: unknown): asserts users is IUsers[] {
   if (users.length === 0) {
     return;
   }
-  users.forEach((users) => {
-    if (!('_id' in users)) {
-      throw new Error("users doens't contain _id");
+  users.forEach((user) => {
+    if (!('_id' in user)) {
+      throw new Error("user doens't contain _id");
     }
-    if (typeof users._id !== 'string') {
+    if (typeof user._id !== 'string') {
       throw new Error('_id is not a string');
     }
-    if (!('firstName' in users)) {
-      throw new Error("users doens't contain firstName");
+    if (!('firstName' in user)) {
+      throw new Error("user doens't contain firstName");
     }
-    if (typeof users.firstName !== 'string') {
+    if (typeof user.firstName !== 'string') {
       throw new Error('firstName is not a string');
     }
-    if (!('lastName' in users)) {
-      throw new Error("users doens't contain lastName");
+    if (!('lastName' in user)) {
+      throw new Error("user doens't contain lastName");
     }
-    if (typeof users.lastName !== 'string') {
+    if (typeof user.lastName !== 'string') {
       throw new Error('lastName is not a string');
     }
-    if (!('email' in users)) {
-      throw new Error("users doens't contain email");
+    if (!('email' in user)) {
+      throw new Error("user doens't contain email");
     }
-    if (typeof users.email !== 'string') {
+    if (typeof user.email !== 'string') {
       throw new Error('email is not a string');
     }
-    if (!('permissions' in users)) {
-      throw new Error("users doens't contain permissions");
+    if (!('permissions' in user)) {
+      throw new Error("user doens't contain permissions");
     }
-    if (typeof users.permissions !== 'string') {
+    if (typeof user.permissions !== 'string') {
       throw new Error('permissions is not a string');
     }
-    if (!('profilePhoto' in users)) {
-      throw new Error("users doens't contain profilePhoto");
+    if (!('profilePhoto' in user)) {
+      throw new Error("user doens't contain profilePhoto");
     }
-    if (typeof users.profilePhoto !== 'string') {
+    if (typeof user.profilePhoto !== 'string') {
       throw new Error('profilePhoto is not a string');
     }
-    if (!('createdAt' in users)) {
-      throw new Error("users doens't contain createdAt");
+    if (!('createdAt' in user)) {
+      throw new Error("user doens't contain createdAt");
     }
-    if (typeof users.createdAt !== 'string') {
+    if (typeof user.createdAt !== 'string') {
       throw new Error('createdAt is not a string');
     }
-    if (!('updatedAt' in users)) {
-      throw new Error("users doens't contain updatedAt");
+    if (!('updatedAt' in user)) {
+      throw new Error("user doens't contain updatedAt");
     }
-    if (typeof users.updatedAt !== 'string') {
+    if (typeof user.updatedAt !== 'string') {
       throw new Error('updatedAt is not a string');
     }
   });

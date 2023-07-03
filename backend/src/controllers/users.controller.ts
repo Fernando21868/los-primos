@@ -5,11 +5,14 @@ import {
   getSingleUserService,
   getUsersService,
   updateUserService,
+  updateUserServiceProfilePhoto,
 } from "../services/users.service";
-import { IUsers } from "../interfaces/users.interface";
+import { IUsers, TUserProfilePhoto } from "../interfaces/users.interface";
 import createHttpError from "http-errors";
 import mongoose from "mongoose";
-import { userSchema } from "../utils/validationSchema.handler";
+import { userSchema, userSchemaProfilePhoto } from "../utils/validationSchema.handler";
+import { uploadFile } from "../middleware/file.middleware";
+import multer from "multer";
 
 const getUsers = async (
   req: Request,
@@ -87,6 +90,42 @@ const createUser = async (
   }
 };
 
+const updateProfilePhotoUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response<IUsers> | void> => {
+  // #swagger.tags = ['users']
+  try {
+    const { idUser } = req.params;
+    let webLink = await uploadFile(req.file);
+    const fileId = webLink?.match(/\/d\/([^\/]+)\//)?.[1];
+    const directUrl = `https://drive.google.com/uc?id=${fileId}`;
+    const file: TUserProfilePhoto = { profilePhoto: directUrl };
+    const result: TUserProfilePhoto = await userSchemaProfilePhoto.validateAsync(
+      file
+    );
+    const response: IUsers | null = await updateUserServiceProfilePhoto(
+      idUser,
+      result
+    );
+    if (!response) {
+      throw createHttpError(404, "profilePhoto of user was not updated.");
+    }
+    return res.status(200).json(response);
+  } catch (err: any) {
+    console.log(err.message);
+    if (err.isJoi === true) err.status = 422;
+    if (err.name === "ValidationError")
+      return next(createHttpError(422, err.message));
+    if (err instanceof mongoose.Error.CastError)
+      return next(createHttpError(400, "Invalid category id."));
+    if (err instanceof multer.MulterError)
+      next(createHttpError(400, "Invalid multer error."));
+    next(err);
+  }
+};
+
 const updateUser = async (
   req: Request,
   res: Response,
@@ -145,4 +184,4 @@ const deleteUser = async (
   }
 };
 
-export { getUsers, getUser, createUser, updateUser, deleteUser };
+export { getUsers, getUser, createUser, updateUser, deleteUser, updateProfilePhotoUser };

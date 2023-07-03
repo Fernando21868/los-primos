@@ -20,12 +20,12 @@ export function List() {
         getCategories().then((data) => {
           if (!cancel) {
             setHeadings({
-              _id: 'ID',
+              photo: 'Imagen categoria',
               nameCategory: 'Nombre Categoria',
               description: 'Descripcion',
-              photo: 'Imagen',
-              createdAt: 'Creacion',
-              updatedAt: 'Actualizacion',
+              // _id: 'ID',
+              // createdAt: 'Creacion',
+              // updatedAt: 'Actualizacion',
               actions: 'Acciones',
             });
             setCategories(data);
@@ -39,16 +39,16 @@ export function List() {
         getUsers().then((data) => {
           if (!cancel) {
             setHeadings({
-              _id: 'ID',
               dni: 'DNI',
+              profilePhoto: 'Foto de perfil',
               firstName: 'Nombre',
               lastName: 'Apellido',
               email: 'Email',
               phoneNumber: 'Telefono',
-              profilePhoto: 'Foto',
-              sex: 'Sexo',
-              createdAt: 'Creacion',
-              updatedAt: 'Actualizacion',
+              // _id: 'ID',
+              // sex: 'Sexo',
+              // createdAt: 'Creacion',
+              // updatedAt: 'Actualizacion',
               actions: 'Acciones',
             });
             setUsers(data);

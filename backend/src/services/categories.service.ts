@@ -1,4 +1,7 @@
-import { ICategories } from "../interfaces/categories.interface";
+import {
+  ICategories,
+  TCategoriesPhoto,
+} from "../interfaces/categories.interface";
 import { db } from "../models";
 
 const getCategoriesService = async (): Promise<ICategories[] | null> => {
@@ -26,7 +29,8 @@ const updateCategoryService = async (
 ): Promise<ICategories | null> => {
   const response = await db.categories.findOneAndUpdate(
     { _id: idCategory },
-    product
+    product,
+    { new: true }
   );
   return response;
 };
@@ -38,10 +42,23 @@ const deleteCategoryService = async (
   return response;
 };
 
+const updateCategoryServicePhoto = async (
+  idCategory: string,
+  photo: TCategoriesPhoto
+): Promise<ICategories | null> => {
+  const response = await db.categories.findOneAndUpdate(
+    { _id: idCategory },
+    photo,
+    { new: true }
+  );
+  return response;
+};
+
 export {
   getCategoriesService,
   getSingleCategoryService,
   createCategoryService,
   updateCategoryService,
   deleteCategoryService,
+  updateCategoryServicePhoto,
 };

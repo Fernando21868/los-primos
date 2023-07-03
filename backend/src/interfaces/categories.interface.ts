@@ -9,3 +9,8 @@ export interface ICategories {
   description: string;
   photo: string;
 }
+
+export type TCategoriesPhoto = Omit<
+  ICategories,
+  "nameCategory" | "description"
+>;

@@ -11,3 +11,5 @@ export interface IUsers {
   sex?: string;
   profilePhoto?: string;
 }
+
+export type TUserProfilePhoto = Pick<IUsers, "profilePhoto">;

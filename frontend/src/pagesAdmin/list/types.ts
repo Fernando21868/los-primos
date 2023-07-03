@@ -27,6 +27,17 @@ export interface IUsers extends IDates {
   permissions: 'gerente' | 'empleado' | 'administrador';
   phoneNumber: string;
   googleId?: string;
-  sex?: string;
+  sex?: 'masculino' | 'femenino' | 'sin especificar';
   profilePhoto?: string;
 }
+
+export type TUserForm = Omit<
+  IUsers,
+  '_id' | 'permissions' | 'googleId' | 'profilePhoto' | 'createdAt' | 'updatedAt'
+>;
+
+export type TCategoryForm = Omit<ICategories, '_id' | 'photo' | 'createdAt' | 'updatedAt'>;
+
+export type TImageFile = {
+  file: string;
+};

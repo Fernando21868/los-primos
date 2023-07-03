@@ -39,7 +39,7 @@ import("./routes/users.route").then((moduleRouter) => {
   app.use("/", moduleRouter.router);
 });
 
-import("./routes/products.route").then((moduleRouter) => {
+import("./routes/categories.route").then((moduleRouter) => {
   app.use("/", moduleRouter.router);
 });
 

@@ -4,6 +4,8 @@
   padding: 0.2rem 0.5rem;
   border: none;
   transition: all ease-in 0.3s;
+  text-decoration: none;
+  text-align: center;
 }
 .list__button.view {
   background-color: rgba(0, 0, 255, 0.6);

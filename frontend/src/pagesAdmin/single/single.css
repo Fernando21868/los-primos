@@ -1,10 +1,10 @@
-.list {
+.single {
   flex: 5;
   background-color: #fff;
   min-height: 100vh;
   max-width: 65rem;
   margin: 0 auto;
 }
-.list__container {
+.single__container {
   padding: 0.5rem;
 }
