@@ -7,6 +7,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { updateUserAction } from '../../store/userSlice';
 import { updateCategoryAction } from '../../store/categorySlice';
+import { Loading } from '../loading/Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * Interface for props of Modal component
@@ -39,10 +42,12 @@ export function Modal({ inputs, isOpen, closeModal }: Props) {
   const modalRef = useRef<HTMLDivElement>(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewSource, setPreviewSource] = useState('');
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const dispatch = useDispatch();
   const category = useSelector((state: RootState) => state.category.category);
   const user = useSelector((state: RootState) => state.user.user);
+  const lightDarkMode = useSelector((state: RootState) => state.lightDarkMode.darkMode);
 
   /**
    * Function to click outside the Modal component and closed it
@@ -91,6 +96,7 @@ export function Modal({ inputs, isOpen, closeModal }: Props) {
    * @returns {*}
    */
   async function handleSubmitFile(data: any) {
+    setIsUpdating(true);
     if (data && category) {
       const categoryUpdated = await updateCategoryPhoto(
         data['file'][0],
@@ -102,6 +108,7 @@ export function Modal({ inputs, isOpen, closeModal }: Props) {
       const userUpdated = await updateUserProfilePhoto(data['file'][0], user['_id']);
       dispatch(updateUserAction(userUpdated));
     }
+    setIsUpdating(false);
   }
 
   if (!isOpen) {
@@ -114,10 +121,14 @@ export function Modal({ inputs, isOpen, closeModal }: Props) {
       onClick={handleOverlayClick}
       className={`form__modal ${isOpen ? 'open' : 'close'}`}
     >
-      <div className="form__modal-container">
+      {isUpdating ? <Loading content="Actualizando imagen" isLoading={isUpdating}></Loading> : null}
+      <div className={`form__modal-container ${lightDarkMode ? 'dark' : ''}`}>
         <div className="form__modal-content">
-          <button className="form__modal-close" onClick={closeModal}>
-            X
+          <button
+            className={`form__modal-close ${lightDarkMode ? 'dark' : ''}`}
+            onClick={closeModal}
+          >
+            <FontAwesomeIcon icon={faXmark} />
           </button>
           <div className="form__modal-file">
             <form
@@ -128,10 +139,15 @@ export function Modal({ inputs, isOpen, closeModal }: Props) {
             >
               {selectedFile ? (
                 <div className="form__modal-image">
-                  <img className="form__modal-img" src={previewSource} alt="Preview of upload" />
+                  <img
+                    className={`form__img ${lightDarkMode ? 'dark' : ''}`}
+                    src={previewSource}
+                    alt="Preview of upload"
+                  />
                 </div>
               ) : null}
               <input
+                className={`form__modal-input ${lightDarkMode ? 'dark' : ''}`}
                 type="file"
                 {...register2('file', {
                   required: `Debes ingresar el campo ${
@@ -143,7 +159,9 @@ export function Modal({ inputs, isOpen, closeModal }: Props) {
               <div className="form__errors">
                 {errors2['file'] ? errors2['file']?.message : null}
               </div>
-              <button type="submit">Cambiar Imagen</button>
+              <button className={lightDarkMode ? 'dark' : ''} type="submit">
+                Cambiar Imagen
+              </button>
             </form>
           </div>
         </div>

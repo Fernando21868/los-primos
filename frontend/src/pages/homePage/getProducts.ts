@@ -1,7 +1,7 @@
 import { TProducts } from './types';
 
 export async function getProducts() {
-  const response = await fetch('http://localhost:8080/products');
+  const response = await fetch('http://localhost:8080/categories');
   const body = (await response.json()) as unknown;
   assertIsProducts(body);
   return body;

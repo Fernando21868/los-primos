@@ -1,3 +1,9 @@
 .container {
   display: flex;
+  background-color: var(--secondary-color-light);
+  color: var(--dark-grey);
+}
+.container.dark {
+  background-color: var(--secondary-color-dark);
+  color: var(--light-grey);
 }

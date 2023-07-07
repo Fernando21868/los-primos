@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getProducts } from './getProducts';
 import { TProducts } from './types';
 import { ProductsList } from './ProductsList';
+import { Loading } from '../../components/loading/Loading';
 
 export function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +22,7 @@ export function HomePage() {
   }, []);
 
   if (isLoading) {
-    return <div className="w-96 mx-auto mt-6">Loading ...</div>;
+    return <Loading content="Cargando" isLoading={isLoading} />;
   }
   return (
     <div className="w-96 mx-auto mt-6">

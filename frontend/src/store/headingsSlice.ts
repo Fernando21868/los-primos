@@ -2,30 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { IUsers } from '../pagesAdmin/list/types';
 
-export type State = {
+type State = {
   user: undefined | IUsers;
   loading: boolean;
-  headings:
-    | {
-        firstName: string;
-        lastName: string;
-        email: string;
-        profilePhoto: string;
-        createdAt?: string;
-        updatedAt?: string;
-        dni: string;
-        phoneNumber: string;
-        sex: string;
-        password?: string;
-        repeatPassword?: string;
-      }
-    | undefined;
 };
 
 const initialState: State = {
   user: undefined,
   loading: false,
-  headings: undefined,
 };
 
 export const userSlice = createSlice({
@@ -47,21 +31,8 @@ export const userSlice = createSlice({
       state.user = undefined;
       state.loading = true;
     },
-    setHeadingsUserAction: (state, action: PayloadAction<State['headings'] | undefined>) => {
-      state.headings = action.payload;
-    },
-    resetHeadingsUserAction: (state) => {
-      state.headings = undefined;
-    },
   },
 });
 
-export const {
-  userAction,
-  getUserAction,
-  updateUserAction,
-  resetUserAction,
-  setHeadingsUserAction,
-  resetHeadingsUserAction,
-} = userSlice.actions;
+export const { userAction, getUserAction, updateUserAction, resetUserAction } = userSlice.actions;
 export default userSlice.reducer;

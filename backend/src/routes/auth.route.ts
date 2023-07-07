@@ -4,16 +4,31 @@ import { Request, Response } from "express";
 
 const router = Router();
 
+router.get("/auth/login/success", (req: Request, res: Response) => {
+  if (req.user) {
+    res.status(200).json(req.user);
+  } else {
+    res.status(403).json({ error: true, message: "Not Authorized" });
+  }
+});
+
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
+router.get("/auth/login/failed", (req: Request, res: Response) => {
+  res.status(401).json({
+    error: true,
+    message: "Log in failure",
+  });
+});
+
 router.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/" }),
+  passport.authenticate("google", { failureRedirect: "/auth/login/failed" }),
   (req: Request, res: Response) => {
-    res.redirect("/users");
+    res.redirect(process.env.CLIENT_URL!);
   }
 );
 
@@ -24,7 +39,7 @@ router.get(
       if (err) {
         return next(err);
       }
-      res.redirect("/");
+      res.redirect(process.env.CLIENT_URL!);
     });
   }
 );

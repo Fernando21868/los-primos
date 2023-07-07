@@ -22,14 +22,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,POST,PUT,DELETE,PATCH",
+    credentials: true,
+  })
+);
 app.use(express.json());
-// app
-//   .use(bodyParser.json())
-//   .use((req: Request, res: Response, next: NextFunction) => {
-//     res.setHeader("Access-Control-Allow-Origin", "*");
-//     next();
-//   });
 
 import("./routes/swagger.route").then((moduleRouter) => {
   app.use("/", moduleRouter.router);

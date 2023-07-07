@@ -1,10 +1,13 @@
 :root {
-  --font-body: "Poppins", "Open Sans", sans-serif;
-  --font-headline: Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --font-body: 'Poppins', 'Open Sans', sans-serif;
+  --font-headline: Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   /* colors */
-  --primary-color: #cb3234;
-  --secondary-color: #ece75f;
-  --tertiary-color: #ffffff;
+  --primary-color-light: #00a6eb;
+  --secondary-color-light: #f6f6f6;
+
+  --primary-color-dark: #1f2937;
+  --secondary-color-dark: #273444;
+
   --light-grey: #d0d0d0;
   --dark-grey: #303030;
 
@@ -18,17 +21,32 @@
 }
 body {
   margin: 0;
-  /* font-family: var(--font-body); */
-  /* font-size: var(--font-base); */
-  /* color: var(--dark-grey); */
+  font-family: var(--font-body);
+  font-size: var(--font-base);
+  /* color: var(--dark-grey);  */
 }
-img{
+img {
   width: 100%;
 }
-button{
+button {
   padding: 0.5rem 0.7rem;
-  background-color: blue;
-  color: white;
+  background-color: transparent;
+  color: var(--primary-color-dark);
   cursor: pointer;
   border: none;
+  font-weight: bold;
+  transition: all 0.2s ease-in;
+  border: 2px solid var(--primary-color-dark);
+}
+button:hover {
+  background-color: var(--primary-color-dark);
+  color: var(--secondary-color-light);
+}
+button.dark {
+  color: var(--primary-color-light);
+  border: 2px solid var(--primary-color-light);
+}
+button.dark:hover {
+  background-color: var(--primary-color-light);
+  color: var(--secondary-color-light);
 }

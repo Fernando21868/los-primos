@@ -1,0 +1,117 @@
+.navigation__bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.navigation__logo {
+  padding: 0.5rem;
+}
+.navigation__list-sm,
+.navigation__account {
+  display: none;
+}
+.navigation__list-lg {
+  list-style: none;
+  padding: 0;
+}
+.navigation__link-lg {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all ease-in 0.3s;
+  background-color: green;
+  text-decoration: none;
+  gap: 10px;
+}
+.navigation__link-lg.active {
+  background-color: red;
+  color: white;
+}
+.navigation__link-lg:hover {
+  background-color: blue;
+  color: white;
+}
+.navigation__list-lg.open {
+  display: none;
+}
+
+.navigation__hamburger {
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.navigation__line {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+}
+.navigation__line.open {
+  transform: rotate(45deg) translate(5px, 6px);
+}
+.navigation__line.open:nth-child(2) {
+  opacity: 0;
+}
+.navigation__line.open:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -6px);
+}
+
+.navigation__login {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 1rem;
+  padding: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  color: green;
+}
+.navigation__login.active {
+  border-bottom: 2px solid green;
+}
+.navigation__login.active:hover {
+  border-bottom: 2px solid blue;
+}
+.navigation__login:hover {
+  color: blue;
+}
+
+@media screen and (min-width: 600px) {
+  .navigation__account{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+  }
+  .navigation__list-sm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+  }
+  .navigation__link-sm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 1rem;
+    padding: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    color: green;
+  }
+  .navigation__link-sm.active {
+    border-bottom: 2px solid green;
+  }
+  .navigation__link-sm.active:hover {
+    border-bottom: 2px solid blue;
+  }
+  .navigation__link-sm:hover {
+    color: blue;
+  }
+  .navigation__hamburger {
+    display: none;
+  }
+}

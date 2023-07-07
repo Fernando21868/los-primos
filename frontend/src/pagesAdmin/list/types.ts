@@ -24,7 +24,7 @@ export interface IUsers extends IDates {
   email: string;
   password: string;
   repeatPassword: string;
-  permissions: 'gerente' | 'empleado' | 'administrador';
+  permissions: 'cliente' | 'gerente' | 'empleado' | 'administrador';
   phoneNumber: string;
   googleId?: string;
   sex?: 'masculino' | 'femenino' | 'sin especificar';

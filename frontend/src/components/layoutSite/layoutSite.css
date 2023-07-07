@@ -1,0 +1,4 @@
+.layoutSite {
+  display: flex;
+  flex-direction: column;
+}

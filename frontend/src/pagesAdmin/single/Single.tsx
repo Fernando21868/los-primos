@@ -2,17 +2,33 @@ import './single.css';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getSingleCategory, getSingleUser } from './getProductsUsers';
-import { Props } from '../../components/table/Table';
 import { Form } from '../../components/form/Form';
 
 // Redux
 import { useDispatch } from 'react-redux';
-import { categoryAction, getCategoryAction, resetCategoryAction } from '../../store/categorySlice';
-import { getUserAction, resetUserAction, userAction } from '../../store/userSlice';
+import {
+  categoryAction,
+  getCategoryAction,
+  resetCategoryAction,
+  resetHeadingsCategoryAction,
+  setHeadingsCategoryAction,
+} from '../../store/categorySlice';
+import {
+  getUserAction,
+  resetHeadingsUserAction,
+  resetUserAction,
+  setHeadingsUserAction,
+  userAction,
+} from '../../store/userSlice';
+import { Loading } from '../../components/loading/Loading';
+import { ViewSingle } from '../../components/viewSingle/ViewSingle';
 
-export function Single() {
+type Props = {
+  component: string;
+};
+
+export function Single({ component }: Props) {
   const [isLoading, setIsLoading] = useState(true);
-  const [inputs, setInputs] = useState<Props['headings']>({});
   const [formLabel, setFormLabel] = useState('');
 
   let params = useParams();
@@ -28,12 +44,25 @@ export function Single() {
       case 'categoryId':
         getSingleCategory(paramValue).then((data) => {
           if (!cancel) {
-            setInputs({
-              nameCategory: 'Nombre Categoria',
-              description: 'Descripcion',
-              photo: 'Imagen',
-            });
-            dispatch(categoryAction);
+            dispatch(
+              setHeadingsCategoryAction(
+                component === 'form'
+                  ? {
+                      nameCategory: 'Nombre Categoria',
+                      description: 'Descripcion',
+                      photo: 'Imagen',
+                    }
+                  : {
+                      nameCategory: 'Nombre Categoria',
+                      description: 'Descripcion',
+                      photo: 'Imagen',
+                      createdAt: 'Fecha Creacion',
+                      updatedAt: 'Fecha Actualizacion',
+                    },
+              ),
+            );
+            dispatch(resetHeadingsUserAction());
+            dispatch(categoryAction());
             dispatch(getCategoryAction(data));
             dispatch(resetUserAction());
             setFormLabel('Categorias');
@@ -44,18 +73,35 @@ export function Single() {
       case 'userId':
         getSingleUser(paramValue).then((data) => {
           if (!cancel) {
-            setInputs({
-              dni: 'DNI',
-              firstName: 'Nombre',
-              lastName: 'Apellido',
-              password: 'Contraseña',
-              repeatPassword: 'Repetir Contraseña',
-              email: 'Email',
-              phoneNumber: 'Telefono',
-              profilePhoto: 'Foto',
-              sex: 'Sexo',
-            });
-            dispatch(userAction);
+            dispatch(
+              setHeadingsUserAction(
+                component === 'form'
+                  ? {
+                      dni: 'DNI',
+                      firstName: 'Nombre',
+                      lastName: 'Apellido',
+                      password: 'Contraseña',
+                      repeatPassword: 'Repetir Contraseña',
+                      email: 'Email',
+                      phoneNumber: 'Telefono',
+                      profilePhoto: 'Foto',
+                      sex: 'Sexo',
+                    }
+                  : {
+                      dni: 'DNI',
+                      firstName: 'Nombre',
+                      lastName: 'Apellido',
+                      email: 'Email',
+                      phoneNumber: 'Telefono',
+                      profilePhoto: 'Foto',
+                      sex: 'Sexo',
+                      createdAt: 'Fecha Creacion',
+                      updatedAt: 'Fecha Actualizacion',
+                    },
+              ),
+            );
+            dispatch(resetHeadingsCategoryAction());
+            dispatch(userAction());
             dispatch(getUserAction(data));
             dispatch(resetCategoryAction());
             setFormLabel('Usuarios');
@@ -69,16 +115,16 @@ export function Single() {
     return () => {
       cancel = true;
     };
-  }, [paramName, paramValue, dispatch]);
+  }, [paramName, paramValue, dispatch, component]);
 
   if (isLoading) {
-    return <div>...Loading</div>;
+    return <Loading content="Cargando Formulario" isLoading={isLoading}></Loading>;
   }
 
   return (
     <div className="single">
       <div className="single__container">
-        <Form formLabel={formLabel} inputs={inputs}></Form>
+        {component === 'form' ? <Form formLabel={formLabel}></Form> : <ViewSingle></ViewSingle>}
       </div>
     </div>
   );

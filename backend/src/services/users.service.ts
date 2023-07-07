@@ -32,7 +32,9 @@ const updateUserService = async (
   idUser: string,
   user: IUsers
 ): Promise<IUsers | null> => {
-  const response = await db.users.findOneAndUpdate({ _id: idUser }, user);
+  const response = await db.users.findOneAndUpdate({ _id: idUser }, user, {
+    new: true,
+  });
   return response;
 };
 

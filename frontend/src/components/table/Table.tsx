@@ -1,4 +1,6 @@
+import { useSelector } from 'react-redux';
 import { ICategories, IUsers } from '../../pagesAdmin/list/types';
+import { RootState } from '../../store/store';
 import { Button } from '../button/Button';
 import './table.css';
 
@@ -10,14 +12,20 @@ export interface Props {
 }
 
 export function Table({ page, headings, categories, users }: Props) {
+  const lightDarkMode = useSelector((state: RootState) => state.lightDarkMode.darkMode);
+
   return (
     <table className="list__table">
       <caption className="list__caption">Tabla de {page}</caption>
       <thead className="list__head">
-        <tr className="list__row">
+        <tr className={`list__row ${lightDarkMode ? 'dark' : ''}`}>
           {Object.keys(headings).map((heading, index) => {
             return (
-              <th key={index} className="list__heading" scope="col">
+              <th
+                key={index}
+                className={`list__heading ${lightDarkMode ? 'dark' : ''}`}
+                scope="col"
+              >
                 {headings[heading]}
               </th>
             );
@@ -27,15 +35,19 @@ export function Table({ page, headings, categories, users }: Props) {
       <tbody className="list__body">
         {categories.length
           ? categories.map((category, index) => (
-              <tr className="list__row" key={index}>
+              <tr className={`list__row ${lightDarkMode ? 'dark' : ''}`} key={index}>
                 {Object.keys(headings).map((heading: any, index: number) => {
                   return (
-                    <td key={index} className="list__data" data-label={headings[heading]}>
+                    <td
+                      key={index}
+                      className={`list__data ${lightDarkMode ? 'dark' : ''}`}
+                      data-label={headings[heading]}
+                    >
                       {heading === 'actions' ? (
                         <div className="list__buttons">
                           <Button
                             styleButton={'list__button view'}
-                            id={category['_id']}
+                            id={`detail/${category['_id']}`}
                             actions={'Ver'}
                           ></Button>
                           <Button
@@ -64,15 +76,19 @@ export function Table({ page, headings, categories, users }: Props) {
               </tr>
             ))
           : users.map((user, index) => (
-              <tr className="list__row" key={index}>
+              <tr className={`list__row ${lightDarkMode ? 'dark' : ''}`} key={index}>
                 {Object.keys(headings).map((heading: any, index) => {
                   return (
-                    <td key={index} className="list__data" data-label={headings[heading]}>
+                    <td
+                      key={index}
+                      className={`list__data ${lightDarkMode ? 'dark' : ''}`}
+                      data-label={headings[heading]}
+                    >
                       {heading === 'actions' ? (
                         <div className="list__buttons">
                           <Button
                             styleButton={'list__button view'}
-                            id={user['_id']}
+                            id={`detail/${user['_id']}`}
                             actions={'Ver'}
                           ></Button>
                           <Button

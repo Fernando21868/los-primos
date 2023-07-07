@@ -1,5 +1,7 @@
 .admin {
   flex: 5;
-  background-color: red;
-  min-height: 100vh;
+  color: var(--dark-gray);
+}
+.admin.dark{
+  color: var(--light-grey);
 }

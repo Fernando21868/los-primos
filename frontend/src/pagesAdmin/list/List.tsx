@@ -3,6 +3,10 @@ import './list.css';
 import { getCategories, getUsers } from './getProductsUsers';
 import { ICategories, IUsers } from './types';
 import { Props, Table } from '../../components/table/Table';
+import { Loading } from '../../components/loading/Loading';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
 
 export function List() {
   const [users, setUsers] = useState<IUsers[]>([]);
@@ -10,10 +14,17 @@ export function List() {
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState('');
   const [headings, setHeadings] = useState<Props['headings']>({});
+  const permissions = useSelector((state: RootState) => state.userAuth.permissions);
 
+  const navigate = useNavigate();
+
+  const lightDarkMode = useSelector((state: RootState) => state.lightDarkMode.darkMode);
   const pathname = window.location.pathname.split('/').pop()!;
 
   useEffect(() => {
+    if (permissions === 'empleado' && pathname === 'users') {
+      navigate('/admin');
+    }
     let cancel = false;
     switch (pathname) {
       case 'categories':
@@ -67,11 +78,11 @@ export function List() {
   }, [pathname]);
 
   if (isLoading) {
-    return <div>...Loading</div>;
+    return <Loading content="Cargando Tabla" isLoading={isLoading}></Loading>;
   }
 
   return (
-    <div className="list">
+    <div className={`list ${lightDarkMode ? 'dark' : ''}`}>
       <div className="list__container">
         <Table page={page} categories={categories} users={users} headings={headings}></Table>
       </div>

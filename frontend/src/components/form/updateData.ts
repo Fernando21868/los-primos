@@ -48,7 +48,7 @@ export async function updateUserProfilePhoto(file: File, id: string) {
     body: formData,
   });
   const body = await response.json();
-  assertIsUpdatedUser(body);
+  assertIsUpdatedUserProfilePhoto(body);
   return body;
 }
 
@@ -113,12 +113,6 @@ function assertIsUpdatedUser(user: any): asserts user is IUsers {
   if (typeof user.createdAt !== 'string') {
     throw new Error('createdAt is not a string');
   }
-  if (!('dni' in user)) {
-    throw new Error("user doesn't contain dni");
-  }
-  if (typeof user.dni !== 'number') {
-    throw new Error('dni is not a number');
-  }
   if (!('email' in user)) {
     throw new Error("user doesn't contain email");
   }
@@ -178,6 +172,69 @@ function assertIsUpdatedUser(user: any): asserts user is IUsers {
   }
   if (!['masculino', 'femenino', 'sin especificar'].includes(user.sex)) {
     throw new Error('sex is not a string');
+  }
+  if (!('updatedAt' in user)) {
+    throw new Error("user doesn't contain updatedAt");
+  }
+  if (typeof user.updatedAt !== 'string') {
+    throw new Error('updatedAt is not a string');
+  }
+  if (!('dni' in user)) {
+    throw new Error("user doesn't contain dni");
+  }
+  if (typeof user.dni !== 'number') {
+    throw new Error('dni is not a number');
+  }
+}
+
+function assertIsUpdatedUserProfilePhoto(user: any): asserts user is IUsers {
+  if (!('_id' in user)) {
+    throw new Error("user doesn't contain _id");
+  }
+  if (typeof user._id !== 'string') {
+    throw new Error('id is not a string');
+  }
+  if (!('createdAt' in user)) {
+    throw new Error("user doesn't contain createdAt");
+  }
+  if (typeof user.createdAt !== 'string') {
+    throw new Error('createdAt is not a string');
+  }
+  if (!('email' in user)) {
+    throw new Error("user doesn't contain email");
+  }
+  if (typeof user.email !== 'string') {
+    throw new Error('email is not a string');
+  }
+  if (!('firstName' in user)) {
+    throw new Error("user doesn't contain firstName");
+  }
+  if (typeof user.firstName !== 'string') {
+    throw new Error('firstName is not a string');
+  }
+  if (!('googleId' in user)) {
+    throw new Error("user doesn't contain googleId");
+  }
+  if (typeof user.googleId !== 'string') {
+    throw new Error('googleId is not a string');
+  }
+  if (!('lastName' in user)) {
+    throw new Error("user doesn't contain lastName");
+  }
+  if (typeof user.lastName !== 'string') {
+    throw new Error('lastName is not a string');
+  }
+  if (!('permissions' in user)) {
+    throw new Error("user doesn't contain permissions");
+  }
+  if (!['cliente', 'gerente', 'empleado', 'administrador'].includes(user.permissions)) {
+    throw new Error('permissions is not a string');
+  }
+  if (!('profilePhoto' in user)) {
+    throw new Error("user doesn't contain profilePhoto");
+  }
+  if (typeof user.profilePhoto !== 'string') {
+    throw new Error('profilePhoto is not a string');
   }
   if (!('updatedAt' in user)) {
     throw new Error("user doesn't contain updatedAt");

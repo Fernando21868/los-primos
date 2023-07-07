@@ -1,0 +1,28 @@
+.login {
+  max-width: 65rem;
+  width: 100%;
+  margin: 0 auto;
+  background-color: red;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.login__google {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid white;
+  padding: 1rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+.login__google:hover {
+  background-color: black;
+  color: white;
+}
