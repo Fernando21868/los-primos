@@ -50,3 +50,27 @@ button.dark:hover {
   background-color: var(--primary-color-light);
   color: var(--secondary-color-light);
 }
+
+.button__link {
+  text-decoration: none;
+  padding: 0.5rem 0.7rem;
+  background-color: transparent;
+  color: var(--primary-color-dark);
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  transition: all 0.2s ease-in;
+  border: 2px solid var(--primary-color-dark);
+}
+.button__link:hover {
+  background-color: var(--primary-color-dark);
+  color: var(--secondary-color-light);
+}
+.button__link.dark {
+  color: var(--primary-color-light);
+  border: 2px solid var(--primary-color-light);
+}
+.button__link.dark:hover {
+  background-color: var(--primary-color-light);
+  color: var(--secondary-color-light);
+}

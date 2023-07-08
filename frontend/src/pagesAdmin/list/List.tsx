@@ -4,9 +4,11 @@ import { getCategories, getUsers } from './getProductsUsers';
 import { ICategories, IUsers } from './types';
 import { Props, Table } from '../../components/table/Table';
 import { Loading } from '../../components/loading/Loading';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
+import { getCategoriesAction, resetCategoriesAction } from '../../store/categoriesSlice';
+import { getUsersAction, resetUsersAction } from '../../store/usersSlice';
 
 export function List() {
   const [users, setUsers] = useState<IUsers[]>([]);
@@ -17,6 +19,7 @@ export function List() {
   const permissions = useSelector((state: RootState) => state.userAuth.permissions);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const lightDarkMode = useSelector((state: RootState) => state.lightDarkMode.darkMode);
   const pathname = window.location.pathname.split('/').pop()!;
@@ -39,8 +42,8 @@ export function List() {
               // updatedAt: 'Actualizacion',
               actions: 'Acciones',
             });
-            setCategories(data);
-            setUsers([]);
+            dispatch(getCategoriesAction(data));
+            dispatch(resetUsersAction());
             setPage('Categorias');
             setIsLoading(false);
           }
@@ -62,8 +65,8 @@ export function List() {
               // updatedAt: 'Actualizacion',
               actions: 'Acciones',
             });
-            setUsers(data);
-            setCategories([]);
+            dispatch(getUsersAction(data));
+            dispatch(resetCategoriesAction());
             setPage('Usuarios');
             setIsLoading(false);
           }
@@ -84,7 +87,7 @@ export function List() {
   return (
     <div className={`list ${lightDarkMode ? 'dark' : ''}`}>
       <div className="list__container">
-        <Table page={page} categories={categories} users={users} headings={headings}></Table>
+        <Table page={page} headings={headings}></Table>
       </div>
     </div>
   );

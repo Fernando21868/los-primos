@@ -22,7 +22,7 @@
   margin-bottom: 0.625em;
   transition: all ease-in 0.2s;
 }
-.list__row.dark{
+.list__row.dark {
   background: var(--secondary-color-dark);
   border-color: var(--light-grey);
   border-bottom-color: var(--light-grey);
@@ -32,7 +32,11 @@
   background-color: var(--light-grey);
   color: var(--dark-grey);
 }
-.list__row:hover .list__data{
+.list__row.dark:hover {
+  background-color: var(--primary-color-dark);
+  color: var(--light-grey);
+}
+.list__row:hover .list__data {
   border-bottom-color: var(--dark-grey);
 }
 .list__data {
@@ -63,11 +67,21 @@
 }
 
 /* BUTTONS */
-.list__buttons{
+.list__buttons {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
+}
+
+.list__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 120px;
+  max-height: 40px;
+  gap: 5px;
 }
 
 @media screen and (min-width: 600px) {
