@@ -60,9 +60,6 @@ export function Table({ page, headings }: Props) {
     setIsDeleting(false);
   }
 
-  console.log('categories', categories);
-  console.log('users', users);
-
   return (
     <>
       <table className="list__table">
@@ -96,7 +93,7 @@ export function Table({ page, headings }: Props) {
                         {heading === 'actions' ? (
                           <div className="list__buttons">
                             <Link
-                              to={`detail/${category['_id']}`}
+                              to={`detailCategory/${category['_id']}`}
                               className={`button__link list__button ${lightDarkMode ? 'dark' : ''}`}
                             >
                               <FontAwesomeIcon icon={faEye} />
@@ -148,7 +145,7 @@ export function Table({ page, headings }: Props) {
                         {heading === 'actions' ? (
                           <div className="list__buttons">
                             <Link
-                              to={`detail/${user['_id']}`}
+                              to={`detailUser/${user['_id']}`}
                               className={`button__link list__button ${lightDarkMode ? 'dark' : ''}`}
                             >
                               <FontAwesomeIcon icon={faEye} />

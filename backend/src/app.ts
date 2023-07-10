@@ -47,6 +47,10 @@ import("./routes/auth.route").then((moduleRouter) => {
   app.use("/", moduleRouter.router);
 });
 
+import("./routes/products.route").then((moduleRouter) => {
+  app.use("/", moduleRouter.router);
+});
+
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(err.status || 500);
   res.send({

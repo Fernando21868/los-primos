@@ -21,7 +21,8 @@ import {
   userAction,
 } from '../../store/userSlice';
 import { Loading } from '../../components/loading/Loading';
-import { ViewSingle } from '../../components/viewSingle/ViewSingle';
+import { ViewSingleCategory } from '../../components/viewSingleCategory/ViewSingleCategory';
+import { ViewSingleUser } from '../../components/viewSingleUser/ViewSingleUser';
 
 type Props = {
   component: string;
@@ -124,7 +125,13 @@ export function Single({ component }: Props) {
   return (
     <div className="single">
       <div className="single__container">
-        {component === 'form' ? <Form formLabel={formLabel}></Form> : <ViewSingle></ViewSingle>}
+        {component === 'form' ? (
+          <Form formLabel={formLabel}></Form>
+        ) : component === 'viewCategory' ? (
+          <ViewSingleCategory></ViewSingleCategory>
+        ) : component === 'viewUser' ? (
+          <ViewSingleUser></ViewSingleUser>
+        ) : null}
       </div>
     </div>
   );

@@ -1,9 +1,11 @@
 import Joi from "joi";
+const objectId = require("joi-objectid");
 import { IUsers, TUserProfilePhoto } from "../interfaces/users.interface";
 import {
   ICategories,
   TCategoriesPhoto,
 } from "../interfaces/categories.interface";
+import { IProducts, TProductsPhoto } from "../interfaces/products.interface";
 
 const userSchema = Joi.object<IUsers>({
   firstName: Joi.string().required().min(4).max(128),
@@ -46,6 +48,20 @@ const categoriesSchema = Joi.object<ICategories>({
   photo: Joi.string(),
 });
 
+const productsSchema = Joi.object<IProducts>({
+  name: Joi.string().required().max(100),
+  description: Joi.string().required().max(500),
+  category: Joi.string().required(),
+  photo: Joi.required(),
+  price: Joi.number().required().greater(4).less(5001),
+  stock: Joi.number().required().less(5001),
+  brand: Joi.string().required().min(2).max(100),
+  expirationDate: Joi.string().required(),
+  barcode: Joi.string().min(2).max(100),
+  weight: Joi.string().min(1).max(100_000),
+  size: Joi.string(),
+});
+
 const categoriesSchemaPhoto = Joi.object<TCategoriesPhoto>({
   photo: Joi.string().required(),
 });
@@ -54,4 +70,15 @@ const userSchemaProfilePhoto = Joi.object<TUserProfilePhoto>({
   profilePhoto: Joi.string().required(),
 });
 
-export { userSchema, categoriesSchema, categoriesSchemaPhoto, userSchemaProfilePhoto };
+const productsSchemaPhoto = Joi.object<TProductsPhoto>({
+  photo: Joi.string().required(),
+});
+
+export {
+  userSchema,
+  categoriesSchema,
+  categoriesSchemaPhoto,
+  userSchemaProfilePhoto,
+  productsSchema,
+  productsSchemaPhoto
+};

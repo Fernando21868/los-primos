@@ -26,8 +26,8 @@ export function App() {
                   <Route path=":userId" element={<Single component={'form'}></Single>}></Route>
                   <Route path="new" element={<New></New>}></Route>
                   <Route
-                    path="detail/:userId"
-                    element={<Single component={'view'}></Single>}
+                    path="detailUser/:userId"
+                    element={<Single component={'viewUser'}></Single>}
                   ></Route>
                 </Route>
                 <Route path="products">
@@ -35,8 +35,8 @@ export function App() {
                   <Route path=":productId" element={<Single component={'form'}></Single>}></Route>
                   <Route path="new" element={<New></New>}></Route>
                   <Route
-                    path="detail/:productId"
-                    element={<Single component={'view'}></Single>}
+                    path="detailProduct/:productId"
+                    element={<Single component={'viewProduct'}></Single>}
                   ></Route>
                 </Route>
                 <Route path="categories">
@@ -44,8 +44,8 @@ export function App() {
                   <Route path=":categoryId" element={<Single component={'form'}></Single>}></Route>
                   <Route path="new" element={<New></New>}></Route>
                   <Route
-                    path="detail/:categoryId"
-                    element={<Single component={'view'}></Single>}
+                    path="detailCategory/:categoryId"
+                    element={<Single component={'viewCategory'}></Single>}
                   ></Route>
                 </Route>
               </Route>
