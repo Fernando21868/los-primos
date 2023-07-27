@@ -44,6 +44,9 @@ function changeNameImage(idParameter: Request["params"]) {
   if (idParameter.idCategory) {
     nameImage = "categoryPhoto";
   }
+  if (idParameter.idProduct) {
+    nameImage = "productPhoto";
+  }
   return nameImage;
 }
 
@@ -55,7 +58,8 @@ export const upload = multer({
     cb: FileFilterCallback
   ): void => {
     const nameImage = changeNameImage(req.params);
-    let size = +req.rawHeaders[5];
+    // let size = +req.rawHeaders[5];
+    const size = +req.headers["content-length"]!;
     const ext = file?.originalname.split(".").pop();
     const fileNameRandom = `${nameImage}-${Date.now()}.${ext}`;
     Object.keys(file).map((item) => {

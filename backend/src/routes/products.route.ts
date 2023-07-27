@@ -7,10 +7,11 @@ import {
   deleteProduct,
   updatePhotoProduct,
   getCategoryOfProduct,
-  getProductsByCategory
+  getProductsByCategory,
 } from "../controllers/products.controller";
 import { uploadFile, upload } from "../middleware/file.middleware";
 import multer from "multer";
+import { ensureAuth } from "../middleware/auth";
 
 const router = Router();
 
@@ -24,12 +25,12 @@ router.get("/products/category/:idProduct", getCategoryOfProduct);
 
 router.get("/products/productsByCategory/:idCategory", getProductsByCategory);
 
-router.post("/products/", createProduct);
+router.post("/products/", ensureAuth, createProduct);
 
-router.put("/products/:idProduct", updateProduct);
+router.put("/products/:idProduct", ensureAuth, updateProduct);
 
-router.patch("/products/:idProduct", upload, updatePhotoProduct);
+router.patch("/products/:idProduct", ensureAuth, upload, updatePhotoProduct);
 
-router.delete("/products/:idProduct", deleteProduct);
+router.delete("/products/:idProduct", ensureAuth, deleteProduct);
 
 export { router };

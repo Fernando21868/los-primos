@@ -1,67 +1,44 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IUsers } from '../pagesAdmin/list/types';
+import { IUsers } from '../interfaces/types';
 
 export type State = {
   user: undefined | IUsers;
-  loading: boolean;
-  headings:
-    | {
-        firstName: string;
-        lastName: string;
-        email: string;
-        profilePhoto: string;
-        createdAt?: string;
-        updatedAt?: string;
-        dni: string;
-        phoneNumber: string;
-        sex: string;
-        password?: string;
-        repeatPassword?: string;
-      }
-    | undefined;
+  users: undefined | IUsers[];
 };
 
 const initialState: State = {
   user: undefined,
-  loading: false,
-  headings: undefined,
+  users: undefined,
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    userAction: (state) => {
-      state.loading = true;
-    },
     getUserAction: (state, action: PayloadAction<IUsers | undefined>) => {
       state.user = action.payload;
-      state.loading = false;
     },
     updateUserAction: (state, action: PayloadAction<IUsers | undefined>) => {
       state.user = action.payload;
-      state.loading = false;
     },
-    resetUserAction: (state) => {
-      state.user = undefined;
-      state.loading = true;
+    getUsersAction: (state, action: PayloadAction<IUsers[] | undefined>) => {
+      state.users = action.payload;
     },
-    setHeadingsUserAction: (state, action: PayloadAction<State['headings'] | undefined>) => {
-      state.headings = action.payload;
+    updateUsersAction: (state, action: PayloadAction<IUsers[] | undefined>) => {
+      state.users = action.payload;
     },
-    resetHeadingsUserAction: (state) => {
-      state.headings = undefined;
+    resetUsersAction: (state) => {
+      state.users = undefined;
     },
   },
 });
 
 export const {
-  userAction,
   getUserAction,
   updateUserAction,
-  resetUserAction,
-  setHeadingsUserAction,
-  resetHeadingsUserAction,
+  getUsersAction,
+  updateUsersAction,
+  resetUsersAction,
 } = userSlice.actions;
 export default userSlice.reducer;

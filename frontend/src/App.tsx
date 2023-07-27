@@ -4,13 +4,15 @@ import { HomePage } from './pages/homePage/HomePage';
 import { Layout } from './pagesAdmin/layoutAdmin/Layout';
 import { Login } from './components/login/Login';
 import { List } from './pagesAdmin/list/List';
-import { Single } from './pagesAdmin/single/Single';
 import { New } from './pagesAdmin/new/New';
 import { Provider } from 'react-redux';
 import { persistor, store } from './store/store';
 import { LayoutSite } from './components/layoutSite/LayoutSite';
 import { Logout } from './components/logout/Logout';
 import { PersistGate } from 'redux-persist/integration/react';
+import { SingleUser } from './pagesAdmin/singleUser/SingleUser';
+import { SingleCategory } from './pagesAdmin/singleCategory/SingleCategory';
+import { SingleProduct } from './pagesAdmin/singleProduct/singleProduct';
 
 export function App() {
   return (
@@ -23,29 +25,38 @@ export function App() {
                 <Route index element={<HomePageAdmin></HomePageAdmin>}></Route>
                 <Route path="users">
                   <Route index element={<List></List>}></Route>
-                  <Route path=":userId" element={<Single component={'form'}></Single>}></Route>
+                  <Route
+                    path=":userId"
+                    element={<SingleUser component={'form'}></SingleUser>}
+                  ></Route>
                   <Route path="new" element={<New></New>}></Route>
                   <Route
                     path="detailUser/:userId"
-                    element={<Single component={'viewUser'}></Single>}
+                    element={<SingleUser component={'viewUser'}></SingleUser>}
                   ></Route>
                 </Route>
                 <Route path="products">
                   <Route index element={<List></List>}></Route>
-                  <Route path=":productId" element={<Single component={'form'}></Single>}></Route>
+                  <Route
+                    path=":productId"
+                    element={<SingleProduct component={'form'}></SingleProduct>}
+                  ></Route>
                   <Route path="new" element={<New></New>}></Route>
                   <Route
                     path="detailProduct/:productId"
-                    element={<Single component={'viewProduct'}></Single>}
+                    element={<SingleProduct component={'viewProduct'}></SingleProduct>}
                   ></Route>
                 </Route>
                 <Route path="categories">
                   <Route index element={<List></List>}></Route>
-                  <Route path=":categoryId" element={<Single component={'form'}></Single>}></Route>
+                  <Route
+                    path=":categoryId"
+                    element={<SingleCategory component={'form'}></SingleCategory>}
+                  ></Route>
                   <Route path="new" element={<New></New>}></Route>
                   <Route
                     path="detailCategory/:categoryId"
-                    element={<Single component={'viewCategory'}></Single>}
+                    element={<SingleCategory component={'viewCategory'}></SingleCategory>}
                   ></Route>
                 </Route>
               </Route>

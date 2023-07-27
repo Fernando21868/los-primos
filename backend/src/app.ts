@@ -5,6 +5,11 @@ import passport from "passport";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import { auth } from "./config/passport";
+import * as categoriesRoutes from "./routes/categories.route";
+import * as usersRoutes from "./routes/users.route";
+import * as productsRoutes from "./routes/products.route";
+import * as authRoutes from "./routes/auth.route";
+import * as swaggerRoutes from "./routes/swagger.route";
 
 const PORT = process.env.PORT || 8081;
 auth(passport);
@@ -31,25 +36,15 @@ app.use(
 );
 app.use(express.json());
 
-import("./routes/swagger.route").then((moduleRouter) => {
-  app.use("/", moduleRouter.router);
-});
+app.use("/", categoriesRoutes.router);
 
-import("./routes/users.route").then((moduleRouter) => {
-  app.use("/", moduleRouter.router);
-});
+app.use("/", usersRoutes.router);
 
-import("./routes/categories.route").then((moduleRouter) => {
-  app.use("/", moduleRouter.router);
-});
+app.use("/", productsRoutes.router);
 
-import("./routes/auth.route").then((moduleRouter) => {
-  app.use("/", moduleRouter.router);
-});
+app.use("/", authRoutes.router);
 
-import("./routes/products.route").then((moduleRouter) => {
-  app.use("/", moduleRouter.router);
-});
+app.use("/", swaggerRoutes.router);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(err.status || 500);

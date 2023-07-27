@@ -8,3 +8,11 @@ export function getDate(timeStamps: string) {
     second: '2-digit',
   }).format(new Date(timeStamps));
 }
+
+export function getFormatPrice(price: number) {
+  let USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+  return USDollar.format(price);
+}

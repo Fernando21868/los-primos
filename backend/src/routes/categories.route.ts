@@ -9,6 +9,7 @@ import {
 } from "../controllers/categories.controller";
 import { uploadFile, upload } from "../middleware/file.middleware";
 import multer from "multer";
+import { ensureAuth } from "../middleware/auth";
 
 const router = Router();
 
@@ -18,12 +19,17 @@ router.get("/categories/", getCategories);
 
 router.get("/categories/:idCategory", getCategory);
 
-router.post("/categories/", createCategory);
+router.post("/categories/", ensureAuth, createCategory);
 
-router.put("/categories/:idCategory", updateCategory);
+router.put("/categories/:idCategory", ensureAuth, updateCategory);
 
-router.patch("/categories/:idCategory", upload, updatePhotoCategory);
+router.patch(
+  "/categories/:idCategory",
+  ensureAuth,
+  upload,
+  updatePhotoCategory
+);
 
-router.delete("/categories/:idCategory", deleteCategory);
+router.delete("/categories/:idCategory", ensureAuth, deleteCategory);
 
 export { router };

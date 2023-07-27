@@ -3,17 +3,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { getDate } from '../../utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCalendarDays,
-  faFileLines,
-  faPenToSquare,
-  faTrash,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faFileLines, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 export function ViewSingleCategory() {
   // Initializations for labels
-  const categoryHeadings = useSelector((state: RootState) => state.category.headings);
   const category = useSelector((state: RootState) => state.category.category);
   const lightDarkMode = useSelector((state: RootState) => state.lightDarkMode.darkMode);
 
@@ -24,11 +18,11 @@ export function ViewSingleCategory() {
           <img
             className={`viewSingleCategory__image ${lightDarkMode ? 'dark' : ''}`}
             src={category?.photo}
-            alt={categoryHeadings?.photo}
+            alt="category of product"
           />
         </div>
         <p className="viewSingleCategory__name">
-          <span className="viewSingleCategory__desc">{categoryHeadings?.nameCategory}: </span>
+          <span className="viewSingleCategory__desc">Categoria: </span>
           <span className="viewSingleCategory__span">{category?.nameCategory}</span>
         </p>
       </div>
@@ -37,14 +31,14 @@ export function ViewSingleCategory() {
           <p className="viewSingleCategory__name">
             <span className="viewSingleCategory__desc">
               <FontAwesomeIcon icon={faCalendarDays} />
-              {categoryHeadings?.createdAt}:{' '}
+              Creada:{' '}
             </span>
             <span className="viewSingleCategory__span">{getDate(category?.createdAt!)}</span>
           </p>
           <p className="viewSingleCategory__name">
             <span className="viewSingleCategory__desc">
               <FontAwesomeIcon icon={faCalendarDays} />
-              {categoryHeadings?.updatedAt}:{' '}
+              Actualizada:{' '}
             </span>
             <span className="viewSingleCategory__span">{getDate(category?.updatedAt!)}</span>
           </p>
@@ -52,7 +46,7 @@ export function ViewSingleCategory() {
         <p className="viewSingleCategory__name">
           <span className="viewSingleCategory__desc">
             <FontAwesomeIcon icon={faFileLines} />
-            {categoryHeadings?.description}:
+            Descripcion:
           </span>
           <span className="viewSingleCategory__span">{category?.description}</span>
         </p>

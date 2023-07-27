@@ -1,0 +1,9 @@
+.single {
+  flex: 5;
+  min-height: 100vh;
+  max-width: 65rem;
+  margin: 0 auto;
+}
+.single__container {
+  padding: 0.5rem;
+}

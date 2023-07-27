@@ -1,5 +1,5 @@
-import { IUsers } from '../../pagesAdmin/list/types';
-import { assertIsSingleUser } from '../../pagesAdmin/single/getProductsUsers';
+import { IUsers } from '../../interfaces/types';
+import { assertIsSingleUser } from '../../services/getData';
 
 export async function authenticate(): Promise<IUsers | undefined> {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login/success`, {

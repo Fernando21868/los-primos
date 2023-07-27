@@ -6,8 +6,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import persistStore from 'redux-persist/es/persistStore';
 import lightDarkModeSlice from './lightDarkModeSlice';
-import usersSlice from './usersSlice';
-import categoriesSlice from './categoriesSlice';
+import productSlice from './productSlice';
 
 const persistConfig = {
   key: 'root',
@@ -22,8 +21,7 @@ const persistedReducer = persistReducer(
     category: categoryReducer,
     userAuth: userAuthReducer,
     lightDarkMode: lightDarkModeSlice,
-    users: usersSlice,
-    categories: categoriesSlice,
+    product: productSlice,
   }),
 );
 

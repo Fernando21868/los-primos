@@ -8,6 +8,7 @@ import {
   updateUser,
 } from "../controllers/users.controller";
 import { upload } from "../middleware/file.middleware";
+import { ensureAuth } from "../middleware/auth";
 
 const router = Router();
 
@@ -17,12 +18,12 @@ router.get("/users/", getUsers);
 
 router.get("/users/:idUser", getUser);
 
-router.post("/users/", createUser);
+router.post("/users/", ensureAuth, createUser);
 
-router.patch("/users/:idUser", upload, updateProfilePhotoUser);
+router.patch("/users/:idUser", ensureAuth, upload, updateProfilePhotoUser);
 
-router.put("/users/:idUser", updateUser);
+router.put("/users/:idUser", ensureAuth, updateUser);
 
-router.delete("/users/:idUser", deleteUser);
+router.delete("/users/:idUser", ensureAuth, deleteUser);
 
 export { router };

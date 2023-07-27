@@ -22,11 +22,11 @@
   background-color: var(--light-grey);
   transition: all 0.2s ease-in;
 }
-.form__input.dark{
+.form__input.dark {
   background-color: var(--primary-color-dark);
   color: var(--light-grey);
 }
-.form__input.dark:focus{
+.form__input.dark:focus {
   background-color: var(--dark-grey);
 }
 .form__input:focus {
@@ -35,7 +35,7 @@
 .form__input:valid {
   border: 2px solid green;
 }
-.form__label.error{
+.form__label.error {
   color: red;
 }
 .form__input.error {
@@ -62,7 +62,7 @@
   border: 1px solid var(--dark-grey);
   padding: 1rem;
 }
-.form__img.dark{
+.form__img.dark {
   border: 1px solid var(--light-grey);
 }
 .form__button-img {
@@ -85,12 +85,12 @@
 }
 
 @media screen and (min-width: 600px) {
-  .form__form.grid{
+  .form__form.grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
   }
-  .form__submit{
+  .form__submit {
     grid-column: span 2;
   }
 }

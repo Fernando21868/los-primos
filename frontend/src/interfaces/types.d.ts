@@ -3,6 +3,23 @@ export interface IDates {
   updatedAt: string;
 }
 
+export interface IProducts extends IDates {
+  _id: string;
+  name: string;
+  description: string;
+  category: {
+    nameCategory: string;
+  };
+  photo: string;
+  price: number;
+  stock: number;
+  brand: string;
+  expirationDate: string;
+  barcode?: string;
+  weight?: string;
+  size?: string;
+}
+
 export interface ICategories extends IDates {
   _id: string;
   nameCategory:
@@ -37,6 +54,8 @@ export type TUserForm = Omit<
 >;
 
 export type TCategoryForm = Omit<ICategories, '_id' | 'photo' | 'createdAt' | 'updatedAt'>;
+
+export type TProductForm = Omit<IProducts, '_id' | 'photo' | 'createdAt' | 'updatedAt'>;
 
 export type TImageFile = {
   file: string;

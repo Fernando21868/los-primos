@@ -16,7 +16,6 @@ import { Link } from 'react-router-dom';
 
 export function ViewSingleUser() {
   // Initializations for labels
-  const userHeadings = useSelector((state: RootState) => state.user.headings);
   const user = useSelector((state: RootState) => state.user.user);
   const lightDarkMode = useSelector((state: RootState) => state.lightDarkMode.darkMode);
 
@@ -27,15 +26,15 @@ export function ViewSingleUser() {
           <img
             className={`viewSingleUser__image ${lightDarkMode ? 'dark' : ''}`}
             src={user?.profilePhoto}
-            alt={userHeadings?.profilePhoto}
+            alt="perfil"
           />
         </div>
         <p className="viewSingleUser__name">
-          <span className="viewSingleUser__desc">{userHeadings?.firstName}: </span>
+          <span className="viewSingleUser__desc">Nombre: </span>
           <span className="viewSingleUser__span">{user?.firstName}</span>
         </p>
         <p className="viewSingleUser__name">
-          <span className="viewSingleUser__desc">{userHeadings?.lastName}: </span>
+          <span className="viewSingleUser__desc">Apellido: </span>
           <span className="viewSingleUser__span">{user?.lastName}</span>
         </p>
       </div>
@@ -44,14 +43,14 @@ export function ViewSingleUser() {
           <p className="viewSingleUser__name">
             <span className="viewSingleUser__desc">
               <FontAwesomeIcon icon={faCalendarDays} />
-              {userHeadings?.createdAt}:{' '}
+              Creado:{' '}
             </span>
             <span className="viewSingleUser__span">{getDate(user?.createdAt!)}</span>
           </p>
           <p className="viewSingleUser__name">
             <span className="viewSingleUser__desc">
               <FontAwesomeIcon icon={faCalendarDays} />
-              {userHeadings?.updatedAt}:{' '}
+              Actualizado:{' '}
             </span>
             <span className="viewSingleUser__span">{getDate(user?.updatedAt!)}</span>
           </p>
@@ -59,14 +58,14 @@ export function ViewSingleUser() {
         <p className="viewSingleUser__name">
           <span className="viewSingleUser__desc">
             <FontAwesomeIcon icon={faGenderless} />
-            {userHeadings?.sex}:
+            Sexo:
           </span>
           <span className="viewSingleUser__span">{user?.sex}</span>
         </p>
         <p className="viewSingleUser__name">
           <span className="viewSingleUser__desc">
             <FontAwesomeIcon icon={faMobileRetro} />
-            {userHeadings?.phoneNumber}:
+            Telefono:
           </span>
           <span className="viewSingleUser__span">{user?.phoneNumber}</span>
         </p>
@@ -80,14 +79,14 @@ export function ViewSingleUser() {
         <p className="viewSingleUser__name">
           <span className="viewSingleUser__desc">
             <FontAwesomeIcon icon={faIdCard} />
-            {userHeadings?.dni}:
+            DNI:
           </span>
           <span className="viewSingleUser__span">{user?.dni}</span>
         </p>
         <p className="viewSingleUser__name">
           <span className="viewSingleUser__desc">
             <FontAwesomeIcon icon={faEnvelope} />
-            {userHeadings?.email}:
+            E-mail:
           </span>
           <span className="viewSingleUser__span">{user?.email}</span>
         </p>

@@ -1,8 +1,12 @@
 import './modal.css';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { TCategoryForm, TImageFile } from '../../pagesAdmin/list/types';
-import { updateCategoryPhoto, updateUserProfilePhoto } from '../form/updateData';
+import { TCategoryForm, TImageFile } from '../../interfaces/types';
+import {
+  updateCategoryPhoto,
+  updateProductPhoto,
+  updateUserProfilePhoto,
+} from '../../services/updateData';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { updateUserAction } from '../../store/userSlice';
@@ -10,6 +14,7 @@ import { updateCategoryAction } from '../../store/categorySlice';
 import { Loading } from '../loading/Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { updateProductAction } from '../../store/productSlice';
 
 /**
  * Interface for props of Modal component
@@ -19,7 +24,6 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
  * @typedef {Props}
  */
 interface Props {
-  inputs: { [key: string]: string };
   isOpen: boolean;
   closeModal: () => void;
 }
@@ -32,7 +36,7 @@ interface Props {
  * @param {Props} { inputs, isOpen, closeModal }
  * @returns {*}
  */
-export function Modal({ inputs, isOpen, closeModal }: Props) {
+export function Modal({ isOpen, closeModal }: Props) {
   const {
     register: register2,
     handleSubmit: handleSubmit2,
@@ -47,6 +51,7 @@ export function Modal({ inputs, isOpen, closeModal }: Props) {
   const dispatch = useDispatch();
   const category = useSelector((state: RootState) => state.category.category);
   const user = useSelector((state: RootState) => state.user.user);
+  const product = useSelector((state: RootState) => state.product.product);
   const lightDarkMode = useSelector((state: RootState) => state.lightDarkMode.darkMode);
 
   /**
@@ -108,6 +113,10 @@ export function Modal({ inputs, isOpen, closeModal }: Props) {
       const userUpdated = await updateUserProfilePhoto(data['file'][0], user['_id']);
       dispatch(updateUserAction(userUpdated));
     }
+    if (data && product) {
+      const productUpdated = await updateProductPhoto(data['file'][0], product['_id']);
+      dispatch(updateProductAction(productUpdated));
+    }
     setIsUpdating(false);
   }
 
@@ -150,8 +159,8 @@ export function Modal({ inputs, isOpen, closeModal }: Props) {
                 className={`form__modal-input ${lightDarkMode ? 'dark' : ''}`}
                 type="file"
                 {...register2('file', {
-                  required: `Debes ingresar el campo ${
-                    user ? inputs['profilePhoto'] : inputs['photo']
+                  required: `Debes ingresar${
+                    user ? 'una foto de perfil' : category ? 'una foto para la categoria' : null
                   }`,
                 })}
                 onChange={handleFileChange}

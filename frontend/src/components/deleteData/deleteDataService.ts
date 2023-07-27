@@ -9,3 +9,9 @@ export async function deleteSingleCategory(id: string) {
     method: 'delete',
   });
 }
+
+export async function deleteSingleProduct(id: string) {
+  await fetch(`http://localhost:8080/products/${id}`, {
+    method: 'delete',
+  });
+}

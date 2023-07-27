@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IUsers } from '../pagesAdmin/list/types';
+import { IUsers } from '../interfaces/types';
 
 type TPermisions = 'cliente' | 'gerente' | 'empleado' | 'administrador';
 

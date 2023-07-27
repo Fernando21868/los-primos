@@ -52,7 +52,7 @@ const productsSchema = Joi.object<IProducts>({
   name: Joi.string().required().max(100),
   description: Joi.string().required().max(500),
   category: Joi.string().required(),
-  photo: Joi.required(),
+  photo: Joi.string(),
   price: Joi.number().required().greater(4).less(5001),
   stock: Joi.number().required().less(5001),
   brand: Joi.string().required().min(2).max(100),

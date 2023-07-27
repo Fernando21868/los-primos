@@ -1,4 +1,11 @@
-import { ICategories, IUsers, TCategoryForm, TUserForm } from '../../pagesAdmin/list/types';
+import {
+  ICategories,
+  IProducts,
+  IUsers,
+  TCategoryForm,
+  TProductForm,
+  TUserForm,
+} from '../interfaces/types';
 
 export async function updateUser(newUserData: TUserForm, id: string) {
   const response = await fetch(`http://localhost:8080/users/${id}`, {
@@ -7,6 +14,7 @@ export async function updateUser(newUserData: TUserForm, id: string) {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
   });
   const body = await response.json();
   assertIsUpdatedUser(body);
@@ -20,10 +28,25 @@ export async function updateCategory(newCategoryData: TCategoryForm, id: string)
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
   });
   const body = await response.json();
   assertIsUpdatedCategory(body);
   return { ...newCategoryData, ...body };
+}
+
+export async function updateProduct(newProductData: TProductForm, id: string) {
+  const response = await fetch(`http://localhost:8080/products/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(newProductData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  });
+  const body = await response.json();
+  assertIsUpdatedProduct(body);
+  return { ...newProductData, ...body };
 }
 
 export async function updateCategoryPhoto(file: File, id: string) {
@@ -33,6 +56,7 @@ export async function updateCategoryPhoto(file: File, id: string) {
   const response = await fetch(`http://localhost:8080/categories/${id}`, {
     method: 'PATCH',
     body: formData,
+    credentials: 'include',
   });
   const body = await response.json();
   assertIsUpdatedCategory(body);
@@ -46,10 +70,86 @@ export async function updateUserProfilePhoto(file: File, id: string) {
   const response = await fetch(`http://localhost:8080/users/${id}`, {
     method: 'PATCH',
     body: formData,
+    credentials: 'include',
   });
   const body = await response.json();
   assertIsUpdatedUserProfilePhoto(body);
   return body;
+}
+
+export async function updateProductPhoto(file: File, id: string) {
+  const formData = new FormData();
+  formData.append('file', file);
+  console.log(formData);
+  const response = await fetch(`http://localhost:8080/products/${id}`, {
+    method: 'PATCH',
+    body: formData,
+    credentials: 'include',
+  });
+  const body = await response.json();
+  assertIsUpdatedProduct(body);
+  return body;
+}
+
+export function assertIsUpdatedProduct(product: unknown): asserts product is IProducts {
+  console.log(product);
+  if (typeof product !== 'object' || product === null) {
+    throw new Error("product isn't an object");
+  }
+  if (!('_id' in product)) {
+    throw new Error("product doens't contain _id");
+  }
+  if (typeof product._id !== 'string') {
+    throw new Error('_id is not a string');
+  }
+  if (!('category' in product)) {
+    throw new Error("product doens't contain category");
+  }
+  if (typeof product.category !== 'string') {
+    throw new Error("category isn't an string");
+  }
+  if (!('photo' in product)) {
+    throw new Error("product doens't contain photo");
+  }
+  if (typeof product.photo !== 'string') {
+    throw new Error('photo is not a string');
+  }
+  if (!('price' in product)) {
+    throw new Error("product doens't contain price");
+  }
+  if (typeof product.price !== 'number') {
+    throw new Error('price is not a number');
+  }
+  if (!('stock' in product)) {
+    throw new Error("product doens't contain stock");
+  }
+  if (typeof product.stock !== 'number') {
+    throw new Error('stock is not a number');
+  }
+  if (!('brand' in product)) {
+    throw new Error("product doens't contain brand");
+  }
+  if (typeof product.brand !== 'string') {
+    throw new Error('brand is not a string');
+  }
+  if (!('description' in product)) {
+    throw new Error("product doens't contain description");
+  }
+  if (typeof product.description !== 'string') {
+    throw new Error('description is not a string');
+  }
+  if (!('expirationDate' in product)) {
+    throw new Error("product doens't contain expirationDate");
+  }
+  if (typeof product.expirationDate !== 'string') {
+    throw new Error('expirationDate is not a string');
+  }
+  if (!('name' in product)) {
+    throw new Error("product doens't contain name");
+  }
+  if (typeof product.name !== 'string') {
+    throw new Error('name is not a string');
+  }
 }
 
 function assertIsUpdatedCategory(category: any): asserts category is ICategories {

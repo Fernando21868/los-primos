@@ -2,7 +2,9 @@ import { IProducts, TProductsPhoto } from "../interfaces/products.interface";
 import { db } from "../models";
 
 const getProductsService = async (): Promise<IProducts[] | null> => {
-  const response = await db.products.find({});
+  const response = await db.products
+    .find({})
+    .populate("category", "nameCategory -_id");
   return response;
 };
 
@@ -16,7 +18,9 @@ const getProductsByCategoryService = async (
 const getSingleProductService = async (
   idProduct: string
 ): Promise<IProducts | null> => {
-  const response = await db.products.findById({ _id: idProduct });
+  const response = await db.products
+    .findById({ _id: idProduct })
+    .populate("category", "nameCategory -_id");
   return response;
 };
 

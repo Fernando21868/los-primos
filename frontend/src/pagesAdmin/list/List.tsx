@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 import './list.css';
-import { getCategories, getUsers } from './getProductsUsers';
-import { ICategories, IUsers } from './types';
+import { getCategories, getProducts, getUsers } from '../../services/getProductsUsers';
 import { Props, Table } from '../../components/table/Table';
 import { Loading } from '../../components/loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
-import { getCategoriesAction, resetCategoriesAction } from '../../store/categoriesSlice';
-import { getUsersAction, resetUsersAction } from '../../store/usersSlice';
+import { getProductsAction, resetProductsAction } from '../../store/productSlice';
+import { getCategoriesAction, resetCategoriesAction } from '../../store/categorySlice';
+import { getUsersAction, resetUsersAction } from '../../store/userSlice';
 
 export function List() {
-  const [users, setUsers] = useState<IUsers[]>([]);
-  const [categories, setCategories] = useState<ICategories[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState('');
   const [headings, setHeadings] = useState<Props['headings']>({});
@@ -37,13 +35,11 @@ export function List() {
               photo: 'Imagen categoria',
               nameCategory: 'Nombre Categoria',
               description: 'Descripcion',
-              // _id: 'ID',
-              // createdAt: 'Creacion',
-              // updatedAt: 'Actualizacion',
               actions: 'Acciones',
             });
             dispatch(getCategoriesAction(data));
             dispatch(resetUsersAction());
+            dispatch(resetProductsAction());
             setPage('Categorias');
             setIsLoading(false);
           }
@@ -59,15 +55,32 @@ export function List() {
               lastName: 'Apellido',
               email: 'Email',
               phoneNumber: 'Telefono',
-              // _id: 'ID',
-              // sex: 'Sexo',
-              // createdAt: 'Creacion',
-              // updatedAt: 'Actualizacion',
               actions: 'Acciones',
             });
             dispatch(getUsersAction(data));
             dispatch(resetCategoriesAction());
+            dispatch(resetProductsAction());
             setPage('Usuarios');
+            setIsLoading(false);
+          }
+        });
+        break;
+      case 'products':
+        getProducts().then((data) => {
+          if (!cancel) {
+            setHeadings({
+              name: 'Nombre Producto',
+              category: 'Nombre Categoria',
+              photo: 'Imagen Producto',
+              price: 'Precio',
+              stock: 'Stock Disponible',
+              brand: 'Marca',
+              actions: 'Acciones',
+            });
+            dispatch(getProductsAction(data));
+            dispatch(resetCategoriesAction());
+            dispatch(resetUsersAction());
+            setPage('Productos');
             setIsLoading(false);
           }
         });
